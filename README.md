@@ -27,6 +27,6 @@ No secrets are required for the current visual prototype. API and authentication
 
 ## Repository links
 
-- Client: https://github.com/abdullahals128-2143s-projects/wedplan-client
-- Server: https://github.com/abdullahals128-2143s-projects/wedplan-server
+- Client: https://github.com/alsabbir128/wedplan-client
+- Server: https://github.com/alsabbir128/wedplan-server
 - Live website: not deployed yet

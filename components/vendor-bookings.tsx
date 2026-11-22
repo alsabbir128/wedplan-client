@@ -8,6 +8,8 @@ type Booking = {
   _id: string
   serviceId: string
   customerId: string
+  customer?: { name?: string; email?: string }
+  service?: { serviceName?: string }
   eventDate: string
   eventLocation: string
   message: string
@@ -63,7 +65,7 @@ export function VendorBookings() {
         <div className="vendor-service-cards">
           {data.items.map((booking) => (
             <article className="vendor-service-card" key={booking._id}>
-              <div className="vendor-service-card-top"><div><span className={`service-status status-${booking.status}`}>{booking.status}</span><h3>Wedding request</h3><p>Customer reference {booking.customerId.slice(-6)}</p></div><time dateTime={booking.eventDate}>{new Date(`${booking.eventDate}T12:00:00`).toLocaleDateString(undefined, { dateStyle: 'medium' })}</time></div>
+              <div className="vendor-service-card-top"><div><span className={`service-status status-${booking.status}`}>{booking.status}</span><h3>{booking.service?.serviceName ?? 'Wedding request'}</h3><p>{booking.customer?.name || 'Customer'}{booking.customer?.email ? ` · ${booking.customer.email}` : ''}</p></div><time dateTime={booking.eventDate}>{new Date(`${booking.eventDate}T12:00:00`).toLocaleDateString(undefined, { dateStyle: 'medium' })}</time></div>
               <p className="booking-location"><MapPin size={15} /> {booking.eventLocation}</p>
               <p className="vendor-service-description">{booking.message || 'No additional note was included.'}</p>
               <div className="vendor-service-actions">

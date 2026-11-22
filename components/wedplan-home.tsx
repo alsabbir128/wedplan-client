@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, ArrowUpRight, CalendarDays, Check, ChevronDown, Heart, MapPin, Menu, Search, ShieldCheck, Sparkles, Star } from 'lucide-react'
+import { SiteHeader } from '@/components/site-header'
+import { ArrowRight, ArrowUpRight, CalendarDays, Check, ChevronDown, Heart, MapPin, Search, ShieldCheck, Sparkles, Star } from 'lucide-react'
 
 const services = [
   { name: 'The Conservatory', category: 'Wedding venues', city: 'Hudson Valley, NY', price: '$8,500', rating: '4.98', image: 'photo-1519167758481-83f550bb49b3', vendor: 'The Conservatory Estate' },
@@ -16,10 +17,6 @@ const categories = [
 
 function Photo({ id, alt, className = '' }: { id: string; alt: string; className?: string }) {
   return <Image src={`https://images.unsplash.com/${id}?auto=format&fit=crop&w=1000&q=85`} alt={alt} fill sizes="(max-width: 700px) 100vw, 33vw" className={`object-cover ${className}`} />
-}
-
-export function SiteHeader() {
-  return <header className="site-header"><Link className="wordmark" href="/" aria-label="WedPlan home"><span className="brand-heart"><Heart size={17} fill="currentColor" /></span> wedplan<span className="brand-period">.</span></Link><nav className="main-nav" aria-label="Main navigation"><Link href="/browse">Find vendors</Link><a href="#how-it-works">How it works</a><a href="#inspiration">Inspiration</a></nav><div className="header-actions"><Link href="/browse" className="header-search" aria-label="Search"><Search size={18} /></Link><Link className="login-link" href="/sign-in">Log in</Link><Link className="button button-small" href="/sign-up">Get started <ArrowUpRight size={15} /></Link></div><button className="mobile-menu" aria-label="Open navigation"><Menu size={22} /></button></header>
 }
 
 function ServiceCard({ item }: { item: typeof services[number] }) {

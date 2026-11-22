@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import { ArrowLeft, ArrowUpRight, Heart, MapPin, Search, SlidersHorizontal, Star } from 'lucide-react'
 import Image from 'next/image'
-import { SiteHeader } from '@/components/wedplan-home'
+import { SiteHeader } from '@/components/site-header'
 
 const listings = [
   { name: 'The Conservatory', category: 'Venues', city: 'Hudson Valley, NY', price: 8500, rating: '4.98', image: 'photo-1519167758481-83f550bb49b3', vendor: 'The Conservatory Estate' },

@@ -4,10 +4,12 @@ Responsive Next.js frontend for WedPlan, a wedding planning marketplace connecti
 
 ## Features
 
-- Wedding-themed homepage and service discovery experience
-- Responsive service directory with category, location, keyword, and price sorting filters
-- Featured vendors, service categories, and planning information sections
-- Accessible navigation and mobile-friendly layouts
+- Responsive wedding marketplace home page and directory backed by approved, active MongoDB services
+- Search, category and location filtering, and ascending/descending price sorting
+- Authenticated service details and booking requests, with customer and vendor booking dashboards
+- Role-based customer, vendor, and administrator areas
+- Vendor service management, profile settings, authenticated ImgBB image uploads, admin moderation, and transaction review
+- Stripe Checkout Premium subscription flow with cancellation; activation is restricted to verified webhook events
 
 ## Technology
 
@@ -19,11 +21,22 @@ Next.js 16, React 19, TypeScript, Tailwind CSS 4, Lucide icons.
 2. Run `pnpm install`.
 3. Run `pnpm dev` and open `http://localhost:3000`.
 
-The current directory listings are presentation samples. The live API and account flows are being developed separately and will be connected in later steps.
+The directory and homepage display only approved, active services returned by the Express API. Booking, moderation, billing, and profile actions are performed through authenticated server endpoints.
 
 ## Environment variables
 
-No secrets are required for the current visual prototype. API and authentication URLs will be added when the client is connected to the backend. Never commit `.env` files or secrets.
+The client uses Better Auth and the shared MongoDB-backed user database. Configure these in the local environment (or deployment settings), never in source control:
+
+| Variable | Purpose |
+| --- | --- |
+| `MONGODB_URI` | MongoDB Atlas connection string |
+| `BETTER_AUTH_SECRET` | Better Auth signing/encryption secret |
+| `BETTER_AUTH_URL` | Canonical client URL; set this in production |
+| `WEDPLAN_API_URL` | Base URL of the separately deployed Express API (without `/api`) |
+| `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | Optional Google sign-in credentials |
+| `IMGBB_API_KEY` | Server-only key for authenticated profile and service image uploads |
+
+Stripe secret and webhook credentials belong on the API server only. The browser never receives them.
 
 ## Repository links
 

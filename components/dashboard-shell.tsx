@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { ArrowLeft, BriefcaseBusiness, CalendarDays, Compass, Heart, LayoutDashboard, LogOut } from 'lucide-react'
+import { ArrowLeft, BadgeCheck, BriefcaseBusiness, CalendarDays, Compass, CreditCard, Heart, LayoutDashboard, LogOut, ShieldCheck, UserRound } from 'lucide-react'
 import { useState } from 'react'
 import { authClient } from '@/lib/auth-client'
 import type { AccountRole } from '@/lib/session'
@@ -46,6 +46,14 @@ export function DashboardShell({ children, email, name, role }: DashboardShellPr
           <Link href={dashboardPath} aria-current={pathname === dashboardPath ? 'page' : undefined}><LayoutDashboard /> Overview</Link>
           {role === 'vendor' && <Link href="/dashboard/vendor/services" aria-current={pathname.startsWith('/dashboard/vendor/services') ? 'page' : undefined}><BriefcaseBusiness /> My services</Link>}
           {role === 'vendor' && <Link href="/dashboard/vendor/bookings" aria-current={pathname.startsWith('/dashboard/vendor/bookings') ? 'page' : undefined}><CalendarDays /> Booking requests</Link>}
+          {role === 'vendor' && <Link href="/dashboard/vendor/subscription" aria-current={pathname.startsWith('/dashboard/vendor/subscription') ? 'page' : undefined}><CreditCard /> Subscription</Link>}
+          {role === 'customer' && <Link href="/dashboard/customer/bookings" aria-current={pathname.startsWith('/dashboard/customer/bookings') ? 'page' : undefined}><CalendarDays /> My bookings</Link>}
+          {role === 'admin' && <>
+            <Link href="/dashboard/admin/users" aria-current={pathname.startsWith('/dashboard/admin/users') ? 'page' : undefined}><ShieldCheck /> Manage users</Link>
+            <Link href="/dashboard/admin/services" aria-current={pathname.startsWith('/dashboard/admin/services') ? 'page' : undefined}><BriefcaseBusiness /> Manage services</Link>
+            <Link href="/dashboard/admin/transactions" aria-current={pathname.startsWith('/dashboard/admin/transactions') ? 'page' : undefined}><CreditCard /> Transactions</Link>
+          </>}
+          <Link href="/dashboard/profile" aria-current={pathname.startsWith('/dashboard/profile') ? 'page' : undefined}><UserRound /> Profile settings</Link>
           <Link href="/browse"><Compass /> Browse services</Link>
           <Link href="/"><Heart /> WedPlan home</Link>
         </nav>

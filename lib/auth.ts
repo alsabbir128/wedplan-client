@@ -24,6 +24,7 @@ export const auth = betterAuth({
       businessName: { type: 'string', required: false, input: true },
       subscriptionPlan: { type: 'string', required: true, defaultValue: 'free', input: false },
       subscriptionExpiresAt: { type: 'date', required: false, input: false },
+      subscriptionCancelAtPeriodEnd: { type: 'boolean', required: true, defaultValue: false, input: false },
     },
   },
   emailAndPassword: {

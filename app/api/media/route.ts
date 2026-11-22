@@ -8,6 +8,11 @@ const MAX_IMAGE_SIZE = 8 * 1024 * 1024
 const allowedTypes = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/avif'])
 
 export async function POST(request: Request) {
+  const contentLength = Number(request.headers.get('content-length'))
+  if (Number.isFinite(contentLength) && contentLength > MAX_IMAGE_SIZE + 64 * 1024) {
+    return NextResponse.json({ error: 'Images must be smaller than 8 MB.' }, { status: 413 })
+  }
+
   const session = await auth.api.getSession({ headers: await headers() })
   if (!session?.user) return NextResponse.json({ error: 'Sign in to upload a profile or service image.' }, { status: 401 })
   const user = await database.collection<{ _id: ObjectId; id?: string; isBlocked?: boolean }>('users').findOne({

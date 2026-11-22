@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, type FormEvent } from 'react'
+import { ImageUploadField } from '@/components/image-upload-field'
 import useSWR from 'swr'
 import { ArrowRight, BriefcaseBusiness, ImagePlus, Pencil, Plus, Trash2, X } from 'lucide-react'
 
@@ -164,7 +165,7 @@ export function VendorServices() {
           <label className="form-wide">Description<textarea required minLength={20} maxLength={5000} rows={4} value={form.description} onChange={(event) => setForm({ ...form, description: event.target.value })} placeholder="Tell couples what makes your service special." /></label>
           <label>Starting price<input required min={1} max={10000000} type="number" value={form.price || ''} onChange={(event) => setForm({ ...form, price: Number(event.target.value) })} placeholder="2500" /></label>
           <label>Location<input required maxLength={240} value={form.location} onChange={(event) => setForm({ ...form, location: event.target.value })} placeholder="Brooklyn, NY" /></label>
-          <label className="form-wide">Service image URL<input required type="url" inputMode="url" value={form.imageUrl} onChange={(event) => setForm({ ...form, imageUrl: event.target.value })} placeholder="https://…" /><small>Use a secure HTTPS image link. Image upload will be added with the media integration.</small></label>
+          <ImageUploadField id="service-image" label="Service image" value={form.imageUrl} onChange={(imageUrl) => setForm({ ...form, imageUrl })} />
           <button className="service-submit" type="submit" disabled={pending}>{pending ? 'Saving…' : editingId ? 'Save changes' : <><Plus size={15} /> Submit for review</>}</button>
         </form>
       </section>

@@ -7,6 +7,11 @@ async function proxy(request: Request, context: { params: Promise<{ path: string
   try {
     const { path } = await context.params
     const incoming = new URL(request.url)
+    const origin = request.headers.get('origin')
+    const fetchSite = request.headers.get('sec-fetch-site')
+    if (request.method !== 'GET' && ((origin && new URL(origin).origin !== incoming.origin) || fetchSite === 'cross-site')) {
+      return Response.json({ error: 'Cross-site requests are not allowed.' }, { status: 403 })
+    }
     const target = `${apiBase}/api/${path.map(encodeURIComponent).join('/')}${incoming.search}`
     const tokenResult = await auth.api.getToken({ headers: request.headers }).catch(() => null)
     const token = tokenResult?.token

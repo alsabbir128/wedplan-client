@@ -3,8 +3,8 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'WedPlan — Find your wedding people',
-  description: 'Thoughtfully chosen wedding vendors, all in one place. Find the people who make your day feel like you.',
+  title: 'WedPlan — Find wedding vendors who feel like you',
+  description: 'Browse reviewed wedding vendors, compare starting prices, and manage booking requests in one thoughtful place.',
   generator: 'v0.app',
   icons: {
     icon: [

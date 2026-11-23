@@ -4,26 +4,41 @@ Responsive Next.js frontend for WedPlan, a wedding planning marketplace connecti
 
 ## Features
 
-- Wedding-themed homepage and service discovery experience
-- Responsive service directory with category, location, keyword, and price sorting filters
-- Featured vendors, service categories, and planning information sections
-- Accessible navigation and mobile-friendly layouts
+- Responsive wedding marketplace landing page and live service directory
+- Category, keyword, location, and price sorting filters initialized from URL parameters
+- Public service detail pages with customer-only booking requests
+- Better Auth email/password accounts backed by MongoDB Atlas; new accounts default to customer
+- Server-guarded customer, vendor, and admin dashboards backed by the Express API
+- Vendor application and administrator approval flow, vendor-owned service management, and booking responses
+- ImgBB image uploads proxied through the Express API
+- Stripe-hosted monthly vendor subscription Checkout and subscription status from verified webhooks
 
 ## Technology
 
-Next.js 16, React 19, TypeScript, Tailwind CSS 4, Lucide icons.
+Next.js 16, React 19, TypeScript, Tailwind CSS 4, Better Auth, MongoDB Atlas, SWR, Lucide icons. The Express API is maintained in the separate `alsabbir128/wedplan-server` repository.
 
 ## Local setup
 
 1. Install Node.js 20 or newer and pnpm.
-2. Run `pnpm install`.
-3. Run `pnpm dev` and open `http://localhost:3000`.
+2. Copy `.env.example` to `.env.local` and set MongoDB and Better Auth values. Keep the real values out of Git.
+3. Install the client dependencies with `pnpm install`.
+4. In the separate `wedplan-server` repository, configure its `.env` from that repository&apos;s `.env.example` and run `npm install`.
+5. Start the API with `npm run dev` from the server repository, then start this client with `pnpm dev` and open `http://localhost:3000`.
 
-The current directory listings are presentation samples. The live API and account flows are being developed separately and will be connected in later steps.
+The client does not seed or present sample listings as live records. It reads marketplace data from the Express API.
 
 ## Environment variables
 
-No secrets are required for the current visual prototype. API and authentication URLs will be added when the client is connected to the backend. Never commit `.env` files or secrets.
+| Variable | Purpose |
+| --- | --- |
+| `MONGODB_URI` | MongoDB Atlas connection string used by Better Auth; server-only |
+| `MONGODB_DB` | Optional database name |
+| `BETTER_AUTH_SECRET` | Better Auth signing secret; at least 32 random characters |
+| `BETTER_AUTH_URL` | Optional canonical Better Auth URL; otherwise Vercel/runtime URL selection is used |
+| `BETTER_AUTH_AUDIENCE` | JWT audience expected by the API; defaults to `wedplan-api` |
+| `API_SERVER_ORIGIN` | Server-only Express API origin, such as `http://localhost:4000`; required on the deployed client so its same-origin proxy can reach the API |
+
+The separate Express deployment also requires its own MongoDB, JWKS/issuer/audience, Stripe, ImgBB, and allowed-origin configuration. Stripe secret keys and webhook secrets belong only in the API deployment, never in browser code. The monthly Stripe Price ID is configured server-side; the marketplace has no agreed plan price hardcoded in this repository.
 
 ## Repository links
 

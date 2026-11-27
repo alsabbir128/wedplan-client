@@ -3,7 +3,7 @@ import { AuthForm } from '@/components/auth-form'
 
 export const metadata: Metadata = {
   title: 'Create an account | WedPlan',
-  description: 'Create a WedPlan account and start finding your wedding vendors.',
+  description: 'Create a WedPlan customer account or apply to join as a wedding vendor.',
 }
 
 export default function SignUpPage() {

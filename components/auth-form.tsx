@@ -10,6 +10,7 @@ type AuthFormProps = { mode: 'sign-in' | 'sign-up'; redirectTo?: string }
 export function AuthForm({ mode, redirectTo }: AuthFormProps) {
   const router = useRouter()
   const [name, setName] = useState('')
+  const [accountType, setAccountType] = useState<'customer' | 'vendor'>('customer')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -40,7 +41,15 @@ export function AuthForm({ mode, redirectTo }: AuthFormProps) {
         return
       }
       const role = account?.role
-      const destination = role === 'admin' ? '/admin' : role === 'vendor' ? '/vendor' : redirectTo === '/vendor/apply' ? '/vendor/apply' : '/customer'
+      const destination = role === 'admin'
+        ? '/admin'
+        : role === 'vendor'
+          ? '/vendor'
+          : isSignUp && accountType === 'vendor'
+            ? '/vendor/apply'
+            : redirectTo === '/vendor/apply'
+              ? '/vendor/apply'
+              : '/customer'
       router.replace(destination)
       router.refresh()
     } catch {
@@ -56,13 +65,26 @@ export function AuthForm({ mode, redirectTo }: AuthFormProps) {
       <section className="auth-card" aria-labelledby="auth-title">
         <span className="eyebrow">A LOVELY PLACE TO BEGIN</span>
         <h1 id="auth-title">{isSignUp ? 'Create your account' : 'Welcome back'}</h1>
-        <p>{isSignUp ? 'Start planning with people who make your day yours.' : 'Sign in to pick up where your planning left off.'}</p>
+        <p>{isSignUp ? 'Join as a customer or apply to list your business as a vendor.' : 'Sign in to pick up where your planning left off.'}</p>
         <form onSubmit={handleSubmit} className="stacked-form">
           {isSignUp && (
-            <label className="form-field">
-              <span>Your name</span>
-              <input autoComplete="name" required maxLength={100} value={name} onChange={(event) => setName(event.target.value)} />
-            </label>
+            <>
+              <label className="form-field">
+                <span>Your name</span>
+                <input autoComplete="name" required maxLength={100} value={name} onChange={(event) => setName(event.target.value)} />
+              </label>
+              <fieldset className="account-type-options">
+                <legend>How will you use WedPlan?</legend>
+                <label className={`account-type-choice ${accountType === 'customer' ? 'is-selected' : ''}`}>
+                  <input type="radio" name="accountType" value="customer" checked={accountType === 'customer'} onChange={() => setAccountType('customer')} />
+                  <span className="account-type-copy"><strong>Customer</strong><small>Plan your wedding and connect with vendors.</small></span>
+                </label>
+                <label className={`account-type-choice ${accountType === 'vendor' ? 'is-selected' : ''}`}>
+                  <input type="radio" name="accountType" value="vendor" checked={accountType === 'vendor'} onChange={() => setAccountType('vendor')} />
+                  <span className="account-type-copy"><strong>Vendor</strong><small>Apply to list your business on WedPlan.</small></span>
+                </label>
+              </fieldset>
+            </>
           )}
           <label className="form-field">
             <span>Email address</span>
@@ -81,7 +103,7 @@ export function AuthForm({ mode, redirectTo }: AuthFormProps) {
           {isSignUp ? 'Already have an account?' : 'New to WedPlan?'}{' '}
           <Link href={isSignUp ? '/sign-in' : '/sign-up'}>{isSignUp ? 'Sign in' : 'Create an account'}</Link>
         </p>
-        {isSignUp && <p className="auth-note">Every new account starts as a customer. Vendor access is granted only after an application is approved.</p>}
+        {isSignUp && <p className="auth-note">Vendor applications are reviewed before vendor access is unlocked. Admin access is never self-selected during sign-up.</p>}
       </section>
     </main>
   )

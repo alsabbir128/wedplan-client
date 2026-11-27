@@ -45,8 +45,18 @@ button, input, select { font: inherit; }
 .auth-submit:disabled,.button:disabled,.text-button:disabled { opacity: .6; cursor: not-allowed; transform: none; }
 .auth-switch { margin: 23px 0 0; color: #756c65; font-size: 12px; text-align: center; }
 .auth-switch a,.auth-note a { color: #76544b; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
-.auth-note { border-top: 1px solid #eee8e2; padding-top: 15px; font-size: 11px !important; }
+  .auth-note { border-top: 1px solid #eee8e2; padding-top: 15px; font-size: 11px !important; }
+.account-type-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; min-width: 0; margin: 0; padding: 0; border: 0; }
+.account-type-options legend { grid-column: 1 / -1; margin-bottom: 8px; color: #554a44; font-size: 12px; font-weight: 600; }
+.account-type-choice { display: flex; min-width: 0; min-height: 86px; align-items: flex-start; gap: 10px; padding: 13px; border: 1px solid #ded6ce; background: #fff; color: #554a44; cursor: pointer; }
+.account-type-choice.is-selected { border-color: #8d625a; background: #fbf6f2; box-shadow: inset 0 0 0 1px #8d625a; }
+.account-type-choice input { flex: 0 0 auto; width: 16px; height: 16px; margin: 2px 0 0; accent-color: #8d625a; }
+.account-type-copy { display: flex; flex-direction: column; gap: 5px; }
+.account-type-copy strong { font-size: 12px; }
+.account-type-copy small { color: #817a73; font-size: 11px; font-weight: 400; line-height: 1.5; }
+.account-type-choice:focus-within { outline: 2px solid #b78979; outline-offset: 2px; }
 .form-error { margin: 0; color: #9b3d34; font-size: 12px; }
+@media (max-width: 600px) { .account-type-options { grid-template-columns: 1fr; } }
 .service-detail-page,.dashboard-page { max-width: 1120px; margin: 0 auto; padding: 36px 30px 90px; }
 .service-detail-layout { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(300px, .75fr); gap: clamp(28px, 5vw, 68px); margin-top: 24px; align-items: start; }
 .service-detail-image { position: relative; height: clamp(290px, 44vw, 520px); overflow: hidden; margin-bottom: 27px; background: #eee8e2; }
